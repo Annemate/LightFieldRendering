@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 931d196293d1c42ca8e7df84f647d811
+timeCreated: 1457601391
+licenseType: Free
+ShaderImporter:
+  defaultTextures:
+  - _Cam1: {fileID: 2800000, guid: b25eed97f27d245eb8b987789d178134, type: 3}
+  - _Cam2: {instanceID: 0}
+  - _Cam3: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

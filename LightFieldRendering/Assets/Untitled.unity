@@ -230,8 +230,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 10620357}
   m_LocalRotation: {x: 0, y: 0, z: 0.19747484, w: 0.980308}
-  m_LocalPosition: {x: 5.45, y: 1.17, z: -5.89}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2.29, y: -1.53, z: -21.2}
+  m_LocalScale: {x: 3.9138348, y: 0.37864462, z: 0.009465585}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -292,8 +292,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 5
-  far clip plane: 1000
+  near clip plane: 0.01
+  far clip plane: 4.53
   field of view: 17.27
   orthographic: 0
   orthographic size: 5
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f73dee683e3f412c842a2a18101c9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depthLevel: 2.62
+  depthLevel: 2.14
 --- !u!1 &146439404
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +465,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1111341668}
   m_LocalRotation: {x: 0.31084025, y: -0.030616771, z: 0.17812, w: 0.93312067}
-  m_LocalPosition: {x: 1.73, y: 0, z: -15.06}
+  m_LocalPosition: {x: 1.73, y: 0.7, z: -15.21}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -502,9 +502,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clean: 0
-  material2: {fileID: 0}
-  Texture: {fileID: 0}
-  renderTexture: {fileID: 8400000, guid: 87a23492e75c3435e9c4d480739cea8a, type: 2}
+  camOneRenderTexture: {fileID: 8400000, guid: 87a23492e75c3435e9c4d480739cea8a, type: 2}
+  camTwoRenderTexture: {fileID: 8400000, guid: 87a23492e75c3435e9c4d480739cea8a, type: 2}
+  camTreeRenderTexture: {fileID: 8400000, guid: 87a23492e75c3435e9c4d480739cea8a,
+    type: 2}
+  camFourRenderTexture: {fileID: 8400000, guid: 87a23492e75c3435e9c4d480739cea8a,
+    type: 2}
 --- !u!81 &1920010951
 AudioListener:
   m_ObjectHideFlags: 0

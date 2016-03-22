@@ -4,6 +4,7 @@ Properties {
 		_Cam1 ("Cam1", 2D) = "white" {}
 		_Cam2 ("Cam2", 2D) = "white" {}
 		_Cam3 ("Cam3", 2D) = "white" {}
+		//_TextureWidth ("TextureWidth", Float) = 0.3
 	}
 
 	SubShader {
@@ -17,7 +18,10 @@ Properties {
 
 	sampler2D _Cam1;
 	sampler2D _Cam2;
- 
+	//sampler2D test;
+	float4 _Cam2_TexelSize;
+	//Float _TextureWidth;
+
 	struct v2f {
 	    float4 pos : SV_POSITION;
 	    float2 depth : TEXCOORD0;
@@ -27,20 +31,37 @@ Properties {
 	v2f vert (appdata_base v) {
 	    v2f o;
 	    o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
-	    //UNITY_TRANSFER_DEPTH(o.depth);
+
 	    return o;
 	}
 
 
-	half4 frag(v2f i) : SV_Target {
-	//    UNITY_OUTPUT_DEPTH(i.depth);
+	float4 frag(v2f i) : SV_Target {
 
-	//float4 leftColor = tex2D(_Cam1, i.pos)*4;
-	float4 leftColor = tex2D(_Cam2, i.pos/512);
 
-	//float4 leftColor = float4(i.pos.y, i.pos.y, i.pos.y, 1)/400;
+		//http://gamedev.stackexchange.com/questions/65783/what-is-world-space-and-eye-space-in-game-development
+		//http://www.songho.ca/opengl/gl_projectionmatrix.html
+		float4 leftColor = tex2D(_Cam2, float2((i.pos.x%(1/_Cam2_TexelSize.x)) * _Cam2_TexelSize.x, (-(i.pos.y * _Cam2_TexelSize.x))+1));
 
-	return leftColor;
+		if(i.pos.x > (1/_Cam2_TexelSize.x)){
+			leftColor = float4(leftColor.w, leftColor.w, leftColor.w, leftColor.w);
+		}
+
+		if(i.pos.y > (1/_Cam2_TexelSize.y)){
+			leftColor = float4(0,0,0,0);
+		}
+
+		//if((1/_Cam2_TexelSize.y) > 1){
+		//	leftColor = float4(1,1,0,1);
+		//}
+
+		//leftColor = float4(i.pos.x/_ScreenParams.x , i.pos.y/_ScreenParams.y , 0 , 1.0);
+
+		//Round to nearest int
+		//leftColor = float4(round(0.5), round(0.5), round(0.5), 1);
+		//leftColor = tex2D(_Cam2, float2(0,0));
+		//leftColor = float4(_TextureWidth,_TextureWidth,_TextureWidth, 1);
+		return leftColor;
 	}
 
 

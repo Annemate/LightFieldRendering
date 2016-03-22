@@ -10,29 +10,31 @@
          Pass
          {
              CGPROGRAM
- 
+
              #pragma vertex vert
              #pragma fragment frag
              #include "UnityCG.cginc"
-             
+
              uniform sampler2D _MainTex;
              uniform sampler2D _CameraDepthTexture;
              uniform fixed _DepthLevel;
              uniform half4 _MainTex_TexelSize;
- 
+
              struct input
              {
                  float4 pos : POSITION;
                  half2 uv : TEXCOORD0;
              };
- 
+
+
+
              struct output
              {
                  float4 pos : SV_POSITION;
                  half2 uv : TEXCOORD0;
              };
- 
- 
+
+
              output vert(input i)
              {
                  output o;
@@ -43,18 +45,22 @@
                  if (_MainTex_TexelSize.y < 0)
                          o.uv.y = 1 - o.uv.y;
                  #endif
- 
+
                  return o;
              }
-             
+
              fixed4 frag(output o) : COLOR
              {
                  float depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, o.uv));
                  depth = pow(Linear01Depth(depth), _DepthLevel);
-                 return depth;
+
+                 float4 myColor = tex2D(_MainTex, o.uv);
+                 myColor = float4(myColor.x, myColor.y, myColor.z ,depth);
+                 return myColor;
+                 //return depth;
              }
-             
+
              ENDCG
          }
-     } 
+     }
  }

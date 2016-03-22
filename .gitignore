@@ -1,8 +1,8 @@
 LightFieldRendering/[Ll]ibrary/
-LightFieldRendering//[Tt]emp/
-LightFieldRendering//[Oo]bj/
-LightFieldRendering//[Bb]uild/
-LightFieldRendering//[Bb]uilds/
+LightFieldRendering/[Tt]emp/
+LightFieldRendering/[Oo]bj/
+LightFieldRendering/[Bb]uild/
+LightFieldRendering/[Bb]uilds/
 LightFieldRendering/Assets/AssetStoreTools*
 LightFieldRendering/Assets/Sublime
 LightFieldRendering/Assets/Sublime.meta

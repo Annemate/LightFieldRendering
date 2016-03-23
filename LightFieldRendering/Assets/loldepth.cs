@@ -15,6 +15,8 @@ public class loldepth : MonoBehaviour {
 	public RenderTexture camTreeRenderTexture;
 	public RenderTexture camFourRenderTexture;
 
+	private float ImagePlaneLength;
+	private float ImagePlaneRatio;
 	// Creates a private material used to the effect
 	void Awake ()
 	{
@@ -43,8 +45,24 @@ public class loldepth : MonoBehaviour {
 					print("Aspect ratio for cam 4 is not 1:1");
 				}
 		}
-		renderTextureWidth = camOneRenderTexture.height;
-		print(renderTextureWidth);
+
+		foreach (Transform child in transform)
+   		{
+   		    if(child.GetComponent<Camera>() != null){
+   		    	child.GetComponent<Camera>().fieldOfView   = gameObject.GetComponent<Camera>().fieldOfView;
+   		    	child.GetComponent<Camera>().nearClipPlane = gameObject.GetComponent<Camera>().nearClipPlane;
+   		    	child.GetComponent<Camera>().farClipPlane  = gameObject.GetComponent<Camera>().farClipPlane;
+   		    }
+   		}
+
+		// The length to the image plane in pixels given a fov.
+		ImagePlaneLength = (Mathf.Sin(90 - (gameObject.GetComponent<Camera>().fieldOfView/2)) * (camOneRenderTexture.height / 2)) / Mathf.Sin(gameObject.GetComponent<Camera>().fieldOfView / 2);
+
+		// The ratio between the lenght to the image plane and the cameras near clipping plane.
+		ImagePlaneRatio = ImagePlaneLength / gameObject.GetComponent<Camera>().nearClipPlane;
+
+		//print(x1 / x2);
+
 	//if(camOneRenderTexture.height + camTwoRenderTexture.height + camTreeRenderTexture.height + camFourRenderTexture.height == camOneRenderTexture.height * 4){
 	//	renderTextureWidth = camOneRenderTexture.height;
 	//}else{
@@ -61,8 +79,14 @@ public class loldepth : MonoBehaviour {
 			Graphics.Blit (source, destination);
 			return;
 		}
-
+		material.SetFloat("_fov", 0.0f);
+		material.SetFloat("_ImagePlaneRatio", ImagePlaneRatio);
+		material.SetFloat("_ImagePlaneLength", ImagePlaneLength);
+		material.SetFloat("_nearPlane", gameObject.GetComponent<Camera>().nearClipPlane);
+		material.SetFloat("_farPlane", gameObject.GetComponent<Camera>().farClipPlane);
 		//material.SetFloat("_bwBlend", Screen.width);
+		//material.SetFloat("_fov", gameObject.GetComponent<Camera>().fov);
+		//material.SetFloat("_nearPlane", gameObject.GetComponent<Camera>().nearClipPlane);
 		//material.SetFloat("_TextureWidth", renderTextureWidth);
 		//material.SetTexture ("_cam2", renderTexture);
 		material.SetTexture ("_Cam2", camOneRenderTexture);

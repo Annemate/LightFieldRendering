@@ -4,6 +4,12 @@ Properties {
 		_Cam1 ("Cam1", 2D) = "white" {}
 		_Cam2 ("Cam2", 2D) = "white" {}
 		_Cam3 ("Cam3", 2D) = "white" {}
+
+		_fov ("_fov", float) = 0
+		_nearPlane ("_nearPlane", float) = 0
+		_farPlane ("_farPlane", float) = 0
+		_ImagePlaneRatio ("_ImagePlaneRatio", float) = 0
+		_ImagePlaneLength ("_ImagePlaneLength", float) = 0
 		//_TextureWidth ("TextureWidth", Float) = 0.3
 	}
 
@@ -18,8 +24,13 @@ Properties {
 
 	sampler2D _Cam1;
 	sampler2D _Cam2;
+	float _fov;
+	float _nearPlane;
+	float _farPlane;
 	//sampler2D test;
 	float4 _Cam2_TexelSize;
+	float _ImagePlaneRatio;
+	float _ImagePlaneLength;
 	//Float _TextureWidth;
 
 	struct v2f {
@@ -41,7 +52,16 @@ Properties {
 
 		//http://gamedev.stackexchange.com/questions/65783/what-is-world-space-and-eye-space-in-game-development
 		//http://www.songho.ca/opengl/gl_projectionmatrix.html
+
+
+
+
 		float4 leftColor = tex2D(_Cam2, float2((i.pos.x%(1/_Cam2_TexelSize.x)) * _Cam2_TexelSize.x, (-(i.pos.y * _Cam2_TexelSize.x))+1));
+
+		float ze = (leftColor.w) * (_farPlane - _nearPlane) + _nearPlane;
+ 		float xe = ((i.pos.x/_ImagePlaneRatio)*(ze/_ImagePlaneRatio))/(_ImagePlaneLength/_ImagePlaneRatio);
+ 		float ye = ((i.pos.y/_ImagePlaneRatio)*(ze/_ImagePlaneRatio))/(_ImagePlaneLength/_ImagePlaneRatio);
+		float3 posE = float3(xe, ye, ze);
 
 		if(i.pos.x > (1/_Cam2_TexelSize.x)){
 			leftColor = float4(leftColor.w, leftColor.w, leftColor.w, leftColor.w);
@@ -51,16 +71,14 @@ Properties {
 			leftColor = float4(0,0,0,0);
 		}
 
-		//if((1/_Cam2_TexelSize.y) > 1){
-		//	leftColor = float4(1,1,0,1);
-		//}
+
 
 		//leftColor = float4(i.pos.x/_ScreenParams.x , i.pos.y/_ScreenParams.y , 0 , 1.0);
 
 		//Round to nearest int
 		//leftColor = float4(round(0.5), round(0.5), round(0.5), 1);
 		//leftColor = tex2D(_Cam2, float2(0,0));
-		//leftColor = float4(_TextureWidth,_TextureWidth,_TextureWidth, 1);
+		//leftColor = float4(_fov,_fov,_fov, 1);
 		return leftColor;
 	}
 

@@ -58,8 +58,8 @@ public class loldepth : MonoBehaviour {
 		// The length to the image plane in pixels given a fov.
 		ImagePlaneLength = (Mathf.Sin(90 - (gameObject.GetComponent<Camera>().fieldOfView/2)) * (camOneRenderTexture.height / 2)) / Mathf.Sin(gameObject.GetComponent<Camera>().fieldOfView / 2);
 
-		// The ratio between the lenght to the image plane and the cameras near clipping plane.
-		ImagePlaneRatio = ImagePlaneLength / gameObject.GetComponent<Camera>().nearClipPlane;
+		// The ratio between the lenght to the image plane and the cameras near clipping plane. Not used!
+		//ImagePlaneRatio = ImagePlaneLength / gameObject.GetComponent<Camera>().nearClipPlane;
 
 		//print(x1 / x2);
 
@@ -79,17 +79,12 @@ public class loldepth : MonoBehaviour {
 			Graphics.Blit (source, destination);
 			return;
 		}
-		material.SetFloat("_fov", 0.0f);
-		material.SetFloat("_ImagePlaneRatio", ImagePlaneRatio);
 		material.SetFloat("_ImagePlaneLength", ImagePlaneLength);
 		material.SetFloat("_nearPlane", gameObject.GetComponent<Camera>().nearClipPlane);
 		material.SetFloat("_farPlane", gameObject.GetComponent<Camera>().farClipPlane);
-		//material.SetFloat("_bwBlend", Screen.width);
-		//material.SetFloat("_fov", gameObject.GetComponent<Camera>().fov);
-		//material.SetFloat("_nearPlane", gameObject.GetComponent<Camera>().nearClipPlane);
-		//material.SetFloat("_TextureWidth", renderTextureWidth);
-		//material.SetTexture ("_cam2", renderTexture);
+
 		material.SetTexture ("_Cam2", camOneRenderTexture);
+
 		//if(Time.frameCount%100 == 0)
 		//print (Screen.width + " " + Screen.height);
 		Graphics.Blit (source, destination, material);

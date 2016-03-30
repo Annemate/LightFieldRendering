@@ -83,7 +83,8 @@ public class loldepth : MonoBehaviour {
 		material.SetFloat("_nearPlane", gameObject.GetComponent<Camera>().nearClipPlane);
 		material.SetFloat("_farPlane", gameObject.GetComponent<Camera>().farClipPlane);
 
-		material.SetTexture ("_Cam2", camOneRenderTexture);
+		material.SetTexture ("_Cam1", camOneRenderTexture);
+		//material.SetTexture ("_Cam3", camTwoRenderTexture);
 
 		//if(Time.frameCount%100 == 0)
 		//print (Screen.width + " " + Screen.height);

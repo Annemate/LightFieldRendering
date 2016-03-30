@@ -1,4 +1,4 @@
-﻿Shader "Custom/loldepth 1" {
+Shader "Custom/loldepth 1" {
 
       Properties
      {
@@ -47,8 +47,8 @@
                  #endif
 
                  return o;
-             }
 
+}
              fixed4 frag(output o) : COLOR
              {
                  float depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, o.uv));

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Untitled.unity
+- path: C:/Users/jakupklein/Desktop/LightFieldRendering-master/LightFieldRendering/Assets/Untitled.unity
   isLoaded: 1
   isActive: 1
